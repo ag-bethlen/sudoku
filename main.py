@@ -1,14 +1,16 @@
-"""
-print('┌───┬───┬───┬───┬───┬───┬───┬───┬───┐')
-for i in range(9):
-  print(end="│ ")
-  for j in range(9):
-    print(board[i][j], end=" │ ")
-  print()
-  if i < 8:
-    print('├───┼───┼───┼───┼───┼───┼───┼───┼───┤')
+board = [[0]*9]*9
+
+
+def print_sudoku_board(board):
+  print('┌───┬───┬───┬───┬───┬───┬───┬───┬───┐')
+  for i in range(9):
+    print(end="│ ")
+    for j in range(9):
+      print(board[i][j], end=" │ ")
+    print()
+    if i < 8:
+      print('├───┼───┼───┼───┼───┼───┼───┼───┼───┤')
   else:
     print('└───┴───┴───┴───┴───┴───┴───┴───┴───┘')
-  """
-  print(:DDDDDDDD)
-  #aaaaaaaa
+
+print_sudoku_board(board)
