@@ -12,15 +12,23 @@ class Board(list):
     def load_data(self, **kwargs):
         if kwargs['type'] == 'file':
             with open(kwargs['data']) as f:
-                return [[5, 8, 2, 1, 3, 0, 4, 6, 9],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0]] # ide a betöltőt meg kell írni
+              sudokuSorokKiolvasva = f.readlines()
+
+              sudokuSorok = []
+
+              for sor in sudokuSorokKiolvasva:
+                aktualisSudokuSorElemei = []
+
+                sor = sor.strip()
+
+                oszlopokAzAktualisSorban = sor.split(" ")
+                for elem in oszlopokAzAktualisSorban:
+                  aktualisSudokuSorElemei.append(int(elem))
+
+                sudokuSorok.append(aktualisSudokuSorElemei)
+
+              return sudokuSorok
+                
         elif kwargs['type'] == 'list':
             return kwargs['data']
 
