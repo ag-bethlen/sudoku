@@ -27,6 +27,7 @@ class Board(list):
 
     def check_row(self, row, col):
         pass
+        return True
 
     def check_col(self, row, col):
         pass
