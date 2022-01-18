@@ -6,8 +6,7 @@ class Board(list):
         self.size = len(self)
         self.solved = False
         self.original = [[self[r][c] > 0 for c in range(self.size)] for r in range(self.size)] 
-        self.valid = [[True for i in range(self.size)] for j in range(self.size)] 
-
+        self.valid = [[True for i in range(self.size)] for j in range(self.size)]
 
     def load_data(self, **kwargs):
         if kwargs['type'] == 'file':
@@ -26,20 +25,36 @@ class Board(list):
             return kwargs['data']
 
     def check_row(self, row, col):
-        pass
+        for c in range(self.size):
+          if c != col and self[row][col] == self[row][c]:
+            return False
         return True
 
     def check_col(self, row, col):
         pass
+        return True
 
     def check_sub(self, row, col):
-        pass
+        pass 
+        return True
 
     def check_board(self):
-        pass
+        self.valid = [[True for i in range(self.size)] for j in range(self.size)]
+        for r in range(self.size):
+            for c in range(self.size):
+                self.valid[r][c] = self.check_row(r, c) and self.check_col(r, c) and self.check_sub(r, c) 
+        
 
-
-# board = Board(type = 'list', data =[[7, 8, 2, 1, 3, 0, 4, 6, 9], [3, 7, 6, 4, 8, 9, 2, 1, 5], [9, 4, 1, 6, 5, 0, 0, 8, 0], [6, 2, 5, 3, 7, 4, 1, 9, 8], [8, 3, 7, 9, 0, 1, 6, 5, 4], [4, 1, 9, 5, 6, 0, 7, 0, 0], [7, 9, 0, 0, 1, 6, 5, 4, 0], [2, 6, 3, 0, 4, 5, 9, 7, 1], [1, 5, 4, 7, 9, 0, 8, 0, 6]])
+    def __str__(self):
+      board = blankboard.blankboard()
+      for row in self:
+        for data in row:
+          if data > 0:
+            board = board.replace('_', str(data), 1)
+          else:
+            board = board.replace('_', ' ', 1)
+      return board
+      
 
 board = Board(type = 'file', data = 'boards/001.txt')
 print(board)
