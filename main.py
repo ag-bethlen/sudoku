@@ -31,7 +31,9 @@ class Board(list):
         return True
 
     def check_col(self, row, col):
-        pass
+        for r in range(self.size):
+          if r != row and self[row][col] == self[r][col]:
+            return False
         return True
 
     def check_sub(self, row, col):
