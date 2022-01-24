@@ -25,6 +25,7 @@ class Board(list):
             return kwargs['data']
 
     def check_row(self, row, col):
+      # Ha üres akkor True ... 
         for c in range(self.size):
           if c != col and self[row][col] == self[row][c]:
             return False
