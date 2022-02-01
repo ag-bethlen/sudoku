@@ -69,16 +69,22 @@ class Board(list):
             self.check_board()
             return 0  # HF: minden függvény adjon vissza 0-t, ha minden ok 
 
-
     def __str__(self):
         board = blankboard.blankboard()
-        for row in self:
-            for data in row:
-                if data > 0:
-                    board = board.replace('_', str(data), 1)
-                else:
-                    board = board.replace('_', ' ', 1)
+        for row in range(self.size):
+            for col in range(self.size):
+                board = board.replace(' _ ', self.display(row, col), 1)
         return board
+    
+    def display(self, row, col):
+        if self[row][col] == 0:
+          return '   '
+        else:
+            if not self.valid[row][col]:
+                return ' \033[95m' + str(self[row][col]) + ' \033[0m'
+            elif self.original[row][col]:
+                return ' \033[96m' + str(self[row][col]) + ' \033[0m'
+      
 
 
 board = Board(type='file', data='boards/001.txt')
