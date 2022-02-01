@@ -7,8 +7,10 @@ class Board(list):
         self.size = len(self)
         self.solved = False
         self.checking = False
-        self.original = [[self[r][c] > 0 for c in range(self.size)] for r in range(self.size)]
-        self.valid = [[True for i in range(self.size)] for j in range(self.size)]
+        self.original = [[self[r][c] > 0 for c in range(self.size)]
+                         for r in range(self.size)]
+        self.valid = [[True for i in range(self.size)]
+                      for j in range(self.size)]
 
     def load_data(self, **kwargs):
         if kwargs['type'] == 'file':
@@ -48,13 +50,15 @@ class Board(list):
 
     def check_board(self):
         self.checking = True
-        self.valid = [[True for i in range(self.size)] for j in range(self.size)]
+        self.valid = [[True for i in range(self.size)]
+                      for j in range(self.size)]
         self.solved = True
         for r in range(self.size):
             for c in range(self.size):
                 if self[r][c] == 0:
                     self.solved = False
-                if self.check_row(r, c) and self.check_col(r, c) and self.check_sub(r, c):
+                if self.check_row(r, c) and self.check_col(
+                        r, c) and self.check_sub(r, c):
                     self.valid[r][c] = True
                 else:
                     self.valid[r][c] = False
@@ -63,11 +67,11 @@ class Board(list):
 
     def turn(self, row, col, value):
         if self.original(row, col):
-            return 11   # 11-es hiba, a mező nem módosítható
-        else:    
+            return 11  # 11-es hiba, a mező nem módosítható
+        else:
             self[row][col] = value
             self.check_board()
-            return 0  # HF: minden függvény adjon vissza 0-t, ha minden ok 
+            return 0  # HF: minden függvény adjon vissza 0-t, ha minden ok
 
     def __str__(self):
         board = blankboard.blankboard()
@@ -75,16 +79,15 @@ class Board(list):
             for col in range(self.size):
                 board = board.replace(' _ ', self.display(row, col), 1)
         return board
-    
+
     def display(self, row, col):
         if self[row][col] == 0:
-          return '   '
+            return '   '
         else:
             if not self.valid[row][col]:
                 return ' \033[95m' + str(self[row][col]) + ' \033[0m'
             elif self.original[row][col]:
                 return ' \033[96m' + str(self[row][col]) + ' \033[0m'
-      
 
 
 board = Board(type='file', data='boards/001.txt')
