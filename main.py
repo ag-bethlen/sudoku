@@ -1,5 +1,4 @@
-import blankboard
-
+import blankboard, colors
 
 class Board(list):
     def __init__(self, **kwargs):
@@ -85,9 +84,11 @@ class Board(list):
             return '   '
         else:
             if not self.valid[row][col]:
-                return ' \033[95m' + str(self[row][col]) + ' \033[0m'
+                return colors.PURPLE + ' ' + str(self[row][col]) + ' ' + colors.END
             elif self.original[row][col]:
-                return ' \033[96m' + str(self[row][col]) + ' \033[0m'
+                return colors.BLUE + ' ' + str(self[row][col]) + ' ' + colors.END
+            else:
+                return ' ' + str(self[row][col]) + ' '
 
 
 board = Board(type='file', data='boards/001.txt')
