@@ -94,3 +94,10 @@ class Board(list):
 board = Board(type='file', data='boards/001.txt')
 # ide jöhet a főprogram pl. egy while board.solved() == False: ...
 print(board)
+while not board.solved:
+    row = int(input('row: ')) - 1   # mert indexek... 
+    col = int(input('col: ')) - 1
+    val = int(input('val: '))
+    board.turn(row, col, val)
+    print(board)
+print('Solved...')
