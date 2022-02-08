@@ -65,7 +65,7 @@ class Board(list):
         self.checking = False
 
     def turn(self, row, col, value):
-        if self.original(row, col):
+        if self.original[row][col]: #  !!!itt volt a hiba
             return 11  # 11-es hiba, a mező nem módosítható
         else:
             self[row][col] = value
