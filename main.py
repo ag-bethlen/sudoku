@@ -1,4 +1,4 @@
-import blankboard, colors
+import blankboard, colors, messages
 
 class Board(list):
     def __init__(self, **kwargs):
@@ -44,8 +44,15 @@ class Board(list):
         return True
 
     def check_sub(self, row, col):
-        pass
+        if self[row][col] == 0:
+            return True
+        for r in range((row // 3) * 3, (row // 3) * 3 + 3):
+            for c in range((col // 3) * 3, (col // 3) * 3 + 3):                
+                if not (r == row and c == col) and self[r][c] == self[row][col]:
+                    return False
         return True
+          
+
 
     def check_board(self):
         self.checking = True
@@ -65,7 +72,7 @@ class Board(list):
         self.checking = False
 
     def turn(self, row, col, value):
-        if self.original[row][col]: #  !!!itt volt a hiba
+        if self.original[row][col]:
             return 11  # 11-es hiba, a mező nem módosítható
         else:
             self[row][col] = value
@@ -92,12 +99,13 @@ class Board(list):
 
 
 board = Board(type='file', data='boards/001.txt')
-# ide jöhet a főprogram pl. egy while board.solved() == False: ...
 print(board)
 while not board.solved:
-    row = int(input('row: ')) - 1   # mert indexek... 
-    col = int(input('col: ')) - 1
-    val = int(input('val: '))
-    board.turn(row, col, val)
+    row = int(input(messages.ROW)) - 1   # mert indexek... 
+    col = int(input(messages.COL)) - 1
+    val = int(input(messages.VAL))
+    error = board.turn(row, col, val)
+    if error == 11: 
+      print(messages.ORIGINAL_FIELD)  # hf: szép üzenet
     print(board)
 print('Solved...')
